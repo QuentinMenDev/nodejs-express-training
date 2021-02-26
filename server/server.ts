@@ -5,41 +5,10 @@ import path = require('path');
 const app: express.Application = express();
 const port = 3000;
 
-/**
- * GET METHOD
- */
-app.get('/', function (req, res) {
-  res.send('Hello World! <br/> <b>Bold text</b>');
+app.use('/', express.static(path.join(__dirname, 'src')))
+app.get('/', function(req, res) {
+  res.sendFile('/index.html');
 });
-
-app.get('/middleware', function(req, res, next) {
-  console.log('Middleware!');
-  next();
-}, function (req, res) {
-  res.send('Hello world! after middleware');
-});
-
-/**
- * POST METHOD
- */
-app.post('/', function(req, res) {
-  res.send('Got a POST request');
-});
-
-/**
- * PUT METHOD
- */
-app.put('/user', function (req, res) {
-  res.send('Got a PUT request at /user');
-});
-
-/**
- * DELETE METHOD
- */
-app.delete('/user', function(req, res) {
-  res.send('Got a DELETE request at /user');
-})
-
 /**
  * Static files serving
  */
